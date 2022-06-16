@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "WorkouterZ"
-include ':app'
+include ':core'
+include ':analytics'
