@@ -55,6 +55,8 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             customDialogForBackbutton()
         }
 
+        binding?.toolBar?.title = "Just Workout"
+
         excerciseList = Constants.defaultExcerciseList()
         excerciseList!!.sortBy { list -> list.getId() }
         tts = TextToSpeech(this,this)
