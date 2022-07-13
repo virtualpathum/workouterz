@@ -5,25 +5,25 @@ import android.os.Bundle
 import com.lk.infinitx.workouterz.databinding.ActivityFinishBinding
 
 class FinishActivity : AppCompatActivity() {
-    private var binding: ActivityFinishBinding? = null
+    private lateinit var binding: ActivityFinishBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         binding = ActivityFinishBinding.inflate(layoutInflater)
 
-        setContentView(binding?.root)
+        setContentView(binding.root)
 
-        setSupportActionBar(binding?.toolbarFinishActivity)
+        setSupportActionBar(binding.toolbarFinishActivity)
 
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
-        binding?.toolbarFinishActivity?.setNavigationOnClickListener {
+        binding.toolbarFinishActivity.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        binding?.btnFinish?.setOnClickListener {
+        binding.btnFinish.setOnClickListener {
             finish()
         }
     }
