@@ -1,19 +1,12 @@
-package com.lk.infinitx.workouterz.data
+package com.lk.infinitx.workouterz.data.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "tbl_excercise")
-data class Excercise(
-
-    @PrimaryKey(autoGenerate = true)
+class ExcerciseModel(
     private var id:Int,
     private var name:String,
     private var image:Int,
     private var isCompleted:Boolean,
     private var isSelected:Boolean
-
-){
+) {
     fun getId(): Int {
         return id
     }
@@ -52,12 +45,5 @@ data class Excercise(
 
     fun setIsSelected(isSelected: Boolean) {
         this.isSelected = isSelected
-    }
-
-    companion object {
-        val empty = Excercise(
-            0, "", 0, false,
-            false
-        )
     }
 }

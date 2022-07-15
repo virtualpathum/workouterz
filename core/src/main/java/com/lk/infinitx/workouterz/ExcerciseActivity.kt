@@ -11,24 +11,27 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lk.infinitx.workouterz.analytics.Analytics
 import com.lk.infinitx.workouterz.analytics.FirebaseAnalytics
-import com.lk.infinitx.workouterz.data.Excercise
-import com.lk.infinitx.workouterz.data.ExcerciseViewModel
-import com.lk.infinitx.workouterz.data.ExcerciseViewModelFactory
+import com.lk.infinitx.workouterz.data.entity.Excercise
+import com.lk.infinitx.workouterz.presentation.ExcerciseViewModel
+import com.lk.infinitx.workouterz.presentation.ExcerciseViewModelFactory
 import com.lk.infinitx.workouterz.databinding.ActivityExcerciseBinding
 import com.lk.infinitx.workouterz.databinding.DialogCustomBackConfirmationBinding
+import com.lk.infinitx.workouterz.presentation.adapter.ExcerciseStatusAdapter
 import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityExcerciseBinding
     private lateinit var excerciseViewModel: ExcerciseViewModel
-    private lateinit var excerciseViewModelFactory: ExcerciseViewModelFactory
+
+    @Inject
+    lateinit var excerciseViewModelFactory: ExcerciseViewModelFactory
 
     private var restTimer:CountDownTimer? = null
     private var restProgress:Int = 0
@@ -44,7 +47,7 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var analytics : Analytics? = null
 
-    private var excerciseAdapter:ExcerciseStatusAdapter? = null
+    private var excerciseAdapter: ExcerciseStatusAdapter? = null
 
     private var restTimerDuration: Long = 1
     private var excerciseTimerDuration: Long = 1
@@ -63,7 +66,9 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding.toolBar.setNavigationOnClickListener{
             customDialogForBackbutton()
         }
-        excerciseViewModel = ViewModelProvider(this,excerciseViewModelFactory).get(ExcerciseViewModel::class.java)
+
+        excerciseViewModel = ViewModelProvider(this,excerciseViewModelFactory).get(
+            ExcerciseViewModel::class.java)
 
        // binding.toolBar?.title = "Just Workout"
 

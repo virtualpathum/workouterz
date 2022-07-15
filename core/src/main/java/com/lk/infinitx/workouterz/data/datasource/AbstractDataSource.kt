@@ -1,4 +1,4 @@
-package com.lk.infinitx.workouterz.data
+package com.lk.infinitx.workouterz.data.datasource
 
 interface AbstractDataSource<T> {
     suspend fun getAll():T

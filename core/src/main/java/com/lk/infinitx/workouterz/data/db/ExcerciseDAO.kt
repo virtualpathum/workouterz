@@ -4,17 +4,20 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.lk.infinitx.workouterz.data.Excercise
+import com.lk.infinitx.workouterz.data.entity.Excercise
 
 @Dao
 interface ExcerciseDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveExcercise(movies:List<Excercise>)
+    fun save(list:List<Excercise>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(excercise: Excercise):Long
 
     @Query("DELETE FROM tbl_excercise")
-    fun deleteExcercise() : Int
+    fun delete() : Int
 
     @Query("SELECT * FROM tbl_excercise")
-    suspend fun getExcercises():List<Excercise>
+    suspend fun getAll():List<Excercise>
 }

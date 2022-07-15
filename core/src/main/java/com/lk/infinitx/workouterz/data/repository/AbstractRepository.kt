@@ -1,4 +1,4 @@
-package com.lk.infinitx.workouterz.data
+package com.lk.infinitx.workouterz.data.repository
 
 
 interface AbstractRepository<T> {

@@ -1,10 +1,11 @@
-package com.lk.infinitx.workouterz
+package com.lk.infinitx.workouterz.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.lk.infinitx.workouterz.data.Excercise
+import com.lk.infinitx.workouterz.R
+import com.lk.infinitx.workouterz.data.entity.Excercise
 import com.lk.infinitx.workouterz.databinding.ItemExcerciseStatusBinding
 
 class ExcerciseStatusAdapter(val items:ArrayList<Excercise>) : RecyclerView.Adapter<
@@ -28,13 +29,13 @@ class ExcerciseStatusAdapter(val items:ArrayList<Excercise>) : RecyclerView.Adap
         when{
             model.getIsCompleted() -> {
                 holder.tvItem.background = ContextCompat.
-                getDrawable(holder.itemView.context, R.drawable.item_circular_green_background )
+                getDrawable(holder.itemView.context, R.drawable.item_circular_green_background)
             }model.getIsSelected() -> {
                 holder.tvItem.background = ContextCompat.
-                getDrawable(holder.itemView.context, R.drawable.item_circular_orange_background )
+                getDrawable(holder.itemView.context, R.drawable.item_circular_orange_background)
             }else -> {
             holder.tvItem.background = ContextCompat.
-            getDrawable(holder.itemView.context, R.drawable.item_circular_grey_background )
+            getDrawable(holder.itemView.context, R.drawable.item_circular_grey_background)
 
             }
         }

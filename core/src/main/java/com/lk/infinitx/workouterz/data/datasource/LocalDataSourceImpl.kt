@@ -1,11 +1,12 @@
-package com.lk.infinitx.workouterz.data
+package com.lk.infinitx.workouterz.data.datasource
 
-import com.lk.infinitx.workouterz.ExcerciseModel
 import com.lk.infinitx.workouterz.R
+import com.lk.infinitx.workouterz.data.db.ExcerciseDAO
+import com.lk.infinitx.workouterz.data.entity.Excercise
 
-class LocalDataSourceImpl:AbstractDataSource<List<Excercise>> {
+class LocalDataSourceImpl(private val excerciseDAO: ExcerciseDAO): LocalDataSource {
 
-    override suspend fun getAll(): List<Excercise> {
+    override suspend fun getAllFromDB(): List<Excercise> {
             val excerciseList = ArrayList<Excercise>()
 
             val jumpingJacks = Excercise(
@@ -116,7 +117,11 @@ class LocalDataSourceImpl:AbstractDataSource<List<Excercise>> {
 
         }
 
-    override suspend fun save(instance: List<Excercise>): List<Excercise> {
-        TODO("Not yet implemented")
+    override suspend fun save(excercise: Excercise): Long {
+        return excerciseDAO.save(excercise)
+    }
+
+    override suspend fun saveList(list: List<Excercise>) {
+        excerciseDAO.save(list)
     }
 }

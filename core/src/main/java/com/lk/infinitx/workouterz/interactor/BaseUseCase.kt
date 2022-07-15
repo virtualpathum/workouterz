@@ -1,4 +1,4 @@
-package com.lk.infinitx.workouterz.data
+package com.lk.infinitx.workouterz.interactor
 
 
 abstract class BaseUseCase<out Type,in Params> where Type : Any  {
