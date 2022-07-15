@@ -11,9 +11,14 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lk.infinitx.workouterz.analytics.Analytics
 import com.lk.infinitx.workouterz.analytics.FirebaseAnalytics
+import com.lk.infinitx.workouterz.data.Excercise
+import com.lk.infinitx.workouterz.data.ExcerciseViewModel
+import com.lk.infinitx.workouterz.data.ExcerciseViewModelFactory
 import com.lk.infinitx.workouterz.databinding.ActivityExcerciseBinding
 import com.lk.infinitx.workouterz.databinding.DialogCustomBackConfirmationBinding
 import java.lang.Exception
@@ -22,6 +27,8 @@ import kotlin.collections.ArrayList
 
 class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityExcerciseBinding
+    private lateinit var excerciseViewModel: ExcerciseViewModel
+    private lateinit var excerciseViewModelFactory: ExcerciseViewModelFactory
 
     private var restTimer:CountDownTimer? = null
     private var restProgress:Int = 0
@@ -29,7 +36,7 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var excerciseTimer:CountDownTimer? = null
     private var excerciseProgress:Int = 0
 
-    private var excerciseList:ArrayList<ExcerciseModel>? = null
+    private var excerciseList:ArrayList<Excercise>? = null
     private var currentExcercisePosition = -1
 
     private var tts:TextToSpeech? = null
@@ -53,13 +60,17 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.toolBar?.setNavigationOnClickListener{
+        binding.toolBar.setNavigationOnClickListener{
             customDialogForBackbutton()
         }
+        excerciseViewModel = ViewModelProvider(this,excerciseViewModelFactory).get(ExcerciseViewModel::class.java)
 
        // binding.toolBar?.title = "Just Workout"
 
-        excerciseList = Constants.defaultExcerciseList()
+        var excerciseLiveData = excerciseViewModel.getExcerciseList()
+        excerciseLiveData.observe(this, androidx.lifecycle.Observer {
+            excerciseList?.addAll(it)
+        })
         excerciseList!!.sortBy { list -> list.getId() }
         tts = TextToSpeech(this,this)
         analytics  =  FirebaseAnalytics(application)
@@ -82,11 +93,11 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         customDialog.setContentView(dialogBinding.root)
         customDialog.setCanceledOnTouchOutside(false)
 
-        dialogBinding.btnYes?.setOnClickListener{
+        dialogBinding.btnYes.setOnClickListener{
             this@ExcerciseActivity.finish()
             customDialog.dismiss()
         }
-        dialogBinding.btnNo?.setOnClickListener{
+        dialogBinding.btnNo.setOnClickListener{
             customDialog.dismiss()
         }
         customDialog.show()
@@ -112,17 +123,17 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             e.printStackTrace()
         }
 
-        binding.flRestView?.visibility = View.VISIBLE
-        binding.flExcerciseView?.visibility = View.INVISIBLE
-        binding.tvTitle?.visibility = View.VISIBLE
-        binding.tvUpcomingExerciseName?.visibility = View.VISIBLE
-        binding.tvUpcomingLabel?.visibility = View.VISIBLE
-        binding.tvExcerciseName?.visibility = View.INVISIBLE
-        binding.flExcerciseView?.visibility = View.INVISIBLE
-        binding.ivExcercise?.visibility = View.INVISIBLE
+        binding.flRestView.visibility = View.VISIBLE
+        binding.flExcerciseView.visibility = View.INVISIBLE
+        binding.tvTitle.visibility = View.VISIBLE
+        binding.tvUpcomingExerciseName.visibility = View.VISIBLE
+        binding.tvUpcomingLabel.visibility = View.VISIBLE
+        binding.tvExcerciseName.visibility = View.INVISIBLE
+        binding.flExcerciseView.visibility = View.INVISIBLE
+        binding.ivExcercise.visibility = View.INVISIBLE
 
         if (currentExcercisePosition<= excerciseList!!.size){
-            binding.tvUpcomingExerciseName?.text = excerciseList!![currentExcercisePosition+1].getName()
+            binding.tvUpcomingExerciseName.text = excerciseList!![currentExcercisePosition+1].getName()
 
         }
 
@@ -137,20 +148,20 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setupExcerciseView(){
-        binding.flRestView?.visibility = View.INVISIBLE
-        binding.flExcerciseView?.visibility = View.VISIBLE
-        binding.tvTitle?.visibility = View.INVISIBLE
-        binding.tvExcerciseName?.visibility = View.VISIBLE
-        binding.flExcerciseView?.visibility = View.VISIBLE
-        binding.ivExcercise?.visibility = View.VISIBLE
-        binding.tvUpcomingExerciseName?.visibility = View.INVISIBLE
-        binding.tvUpcomingLabel?.visibility = View.INVISIBLE
+        binding.flRestView.visibility = View.INVISIBLE
+        binding.flExcerciseView.visibility = View.VISIBLE
+        binding.tvTitle.visibility = View.INVISIBLE
+        binding.tvExcerciseName.visibility = View.VISIBLE
+        binding.flExcerciseView.visibility = View.VISIBLE
+        binding.ivExcercise.visibility = View.VISIBLE
+        binding.tvUpcomingExerciseName.visibility = View.INVISIBLE
+        binding.tvUpcomingLabel.visibility = View.INVISIBLE
         if(excerciseTimer !=null ){
             excerciseTimer?.cancel()
             excerciseProgress = 0
         }
-        binding.ivExcercise?.setImageResource(excerciseList!![currentExcercisePosition].getImage())
-        binding.tvExcerciseName?.text = excerciseList!![currentExcercisePosition].getName()
+        binding.ivExcercise.setImageResource(excerciseList!![currentExcercisePosition].getImage())
+        binding.tvExcerciseName.text = excerciseList!![currentExcercisePosition].getName()
 
         speakOut(excerciseList!![currentExcercisePosition].getName())
         setExcerciseProgressBar()
@@ -158,14 +169,14 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setExcerciseProgressBar(){
 
-        binding.progessBarExcercise?.progress = excerciseProgress
+        binding.progessBarExcercise.progress = excerciseProgress
 
         excerciseTimer = object : CountDownTimer(excerciseTimerDuration*1000,1000){
 
             override fun onTick(p0: Long) {
                 excerciseProgress++
-                binding.progessBarExcercise?.progress = 30 - excerciseProgress
-                binding.tvTimerExcercise?.text = (30 - excerciseProgress).toString()
+                binding.progessBarExcercise.progress = 30 - excerciseProgress
+                binding.tvTimerExcercise.text = (30 - excerciseProgress).toString()
 
             }
 
@@ -192,14 +203,14 @@ class ExcerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setRestProgressBar(){
 
-        binding.progessBarExcercise?.progress = excerciseProgress
+        binding.progessBarExcercise.progress = excerciseProgress
 
         restTimer = object : CountDownTimer(restTimerDuration*1000,1000){
 
             override fun onTick(p0: Long) {
                 restProgress++
-                binding.progessBarRest?.progress = 10 - restProgress
-                binding.tvTimerRest?.text = (10 - restProgress).toString()
+                binding.progessBarRest.progress = 10 - restProgress
+                binding.tvTimerRest.text = (10 - restProgress).toString()
 
             }
 

@@ -1,6 +1,9 @@
 package com.lk.infinitx.workouterz
 
 object Constants {
+        const val LOCAL = "LOCAL"
+        const val REMOTE = "REMOTE"
+
 
     fun defaultExcerciseList():ArrayList<ExcerciseModel>{
         val excerciseList = ArrayList<ExcerciseModel>()
