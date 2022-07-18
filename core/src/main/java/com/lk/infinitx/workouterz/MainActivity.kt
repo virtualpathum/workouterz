@@ -16,14 +16,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.flStart.setOnClickListener{
-            val intent = Intent(this,ExcerciseActivity::class.java)
+            val intent = Intent(this,ExerciseActivity::class.java)
             startActivity(intent)
         }
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-    }
 }

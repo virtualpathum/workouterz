@@ -24,7 +24,9 @@ class FinishActivity : AppCompatActivity() {
         }
 
         binding.btnFinish.setOnClickListener {
-            finish()
+
+            throw RuntimeException("Test Crash")
+           // finish()
         }
     }
 }

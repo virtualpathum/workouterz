@@ -1,9 +1,11 @@
 package com.lk.infinitx.workouterz.data.repository
 
 import android.util.Log
-import com.lk.infinitx.workouterz.data.datasource.*
+import com.lk.infinitx.workouterz.data.datasource.CacheDataSource
+import com.lk.infinitx.workouterz.data.datasource.LocalDataSource
+import com.lk.infinitx.workouterz.data.datasource.RemoteDataSource
 import com.lk.infinitx.workouterz.data.entity.Excercise
-import java.lang.Exception
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class ExcerciseRepositoryImpl @Inject constructor (
@@ -14,7 +16,7 @@ class ExcerciseRepositoryImpl @Inject constructor (
 
 ): ExcerciseRepository {
 
-    override suspend fun getAll(): List<Excercise> {
+    override fun getAll(): List<Excercise> {
         return getFromCache()
     }
 
@@ -26,10 +28,11 @@ class ExcerciseRepositoryImpl @Inject constructor (
        localDataSource.saveList(list)
     }
 
-    private suspend fun getFromCache():List<Excercise>{
+    private fun getFromCache():List<Excercise>{
         lateinit var list : List<Excercise>
         try {
             list = cacheDataSource.getFromCache()
+            Log.i("MyTag","list size cache: "+ list.size)
         }catch (exception: Exception){
             Log.i("MyTag",exception.message.toString())
         }
@@ -42,18 +45,21 @@ class ExcerciseRepositoryImpl @Inject constructor (
         return list
     }
 
-    private suspend fun getFromDB():List<Excercise>{
+    private fun getFromDB():List<Excercise>{
         lateinit var list : List<Excercise>
         try {
             list = localDataSource.getAllFromDB()
+            Log.i("MyTag","list size DB: "+ list.size)
         }catch (exception:Exception){
             Log.i("MyTag",exception.message.toString())
         }
         if(list.size>0){
             return list
         }else{
-            list = getFromAPI()
-            localDataSource.saveList(list)
+            list = runBlocking { getFromAPI()}
+            runBlocking {
+                localDataSource.saveList(list)
+            }
         }
         return list
     }

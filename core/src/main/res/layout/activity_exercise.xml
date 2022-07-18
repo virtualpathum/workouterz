@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ExcerciseActivity">
+    tools:context=".ExerciseActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
@@ -99,31 +99,31 @@
         tools:text="Exercise Name" />
 
     <ImageView
-        android:id="@+id/ivExcercise"
+        android:id="@+id/ivExercise"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_jumping_jacks"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/tvExcerciseName"
+        app:layout_constraintBottom_toTopOf="@+id/tvExerciseName"
         app:layout_constraintTop_toBottomOf="@+id/toolBar" />
 
     <TextView
-        android:id="@+id/tvExcerciseName"
+        android:id="@+id/tvExerciseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Excercise Name"
+        android:text="Exercise Name"
         android:textColor="@color/colorAccent"
         android:textSize="22sp"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivExcercise"
+        app:layout_constraintTop_toBottomOf="@+id/ivExercise"
         app:layout_constraintEnd_toEndOf="parent" />
 
 
     <FrameLayout
-        android:id="@+id/flExcerciseView"
+        android:id="@+id/flExerciseView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -132,10 +132,10 @@
         android:background="@drawable/item_circular_color_accent_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvExcerciseName">
+        app:layout_constraintTop_toBottomOf="@id/tvExerciseName">
 
         <ProgressBar
-            android:id="@+id/progessBarExcercise"
+            android:id="@+id/progessBarExercise"
             android:layout_width="100dp"
             android:layout_height="100dp"
             style="?android:attr/progressBarStyleHorizontal"
@@ -155,7 +155,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tvTimerExcercise"
+                android:id="@+id/tvTimerExercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="30"
@@ -167,10 +167,10 @@
 
     </FrameLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvExcerciseStatus"
+        android:id="@+id/rvExerciseStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/flExcerciseView"
+        app:layout_constraintTop_toBottomOf="@id/flExerciseView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

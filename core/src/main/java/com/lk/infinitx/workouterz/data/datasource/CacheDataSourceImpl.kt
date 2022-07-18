@@ -6,11 +6,11 @@ class CacheDataSourceImpl:CacheDataSource {
 
     private var list = ArrayList<Excercise>()
 
-    override suspend fun getFromCache(): List<Excercise> {
-        return list
+    override fun getFromCache(): List<Excercise> {
+       return list
     }
 
-    override suspend fun saveToCache(excercises: List<Excercise>) {
+    override fun saveToCache(excercises: List<Excercise>) {
         list.clear()
         list.addAll(excercises)
     }

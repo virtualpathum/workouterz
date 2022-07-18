@@ -4,7 +4,7 @@ import com.lk.infinitx.workouterz.data.entity.Excercise
 
 interface LocalDataSource {
 
-    suspend fun getAllFromDB(): List<Excercise>
+    fun getAllFromDB(): List<Excercise>
 
     suspend fun save(excercise: Excercise):Long
 

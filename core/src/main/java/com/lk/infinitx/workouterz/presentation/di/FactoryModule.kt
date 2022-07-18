@@ -1,8 +1,7 @@
 package com.lk.infinitx.workouterz.presentation.di
 
-import android.app.Application
-import com.lk.infinitx.workouterz.interactor.GetExcerciseUseCase
-import com.lk.infinitx.workouterz.presentation.ExcerciseViewModelFactory
+import com.lk.infinitx.workouterz.interactor.GetExerciseUseCase
+import com.lk.infinitx.workouterz.presentation.ExerciseViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +14,7 @@ class FactoryModule {
 
     @Provides
     @Singleton
-    fun providesViewModelFactory(getExcerciseUseCase: GetExcerciseUseCase):ExcerciseViewModelFactory{
-        return ExcerciseViewModelFactory(getExcerciseUseCase)
+    fun providesViewModelFactory(getExerciseUseCase: GetExerciseUseCase):ExerciseViewModelFactory{
+        return ExerciseViewModelFactory(getExerciseUseCase)
     }
 }

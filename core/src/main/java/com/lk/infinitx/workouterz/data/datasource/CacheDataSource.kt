@@ -4,7 +4,7 @@ import com.lk.infinitx.workouterz.data.entity.Excercise
 
 interface CacheDataSource {
 
-    suspend fun getFromCache():List<Excercise>
-    suspend fun saveToCache(excercises :List<Excercise>)
+    fun getFromCache():List<Excercise>
+    fun saveToCache(exercises :List<Excercise>)
 
 }

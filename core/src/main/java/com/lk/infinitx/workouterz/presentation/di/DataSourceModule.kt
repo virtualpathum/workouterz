@@ -20,8 +20,8 @@ class DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(excerciseDAO: ExcerciseDAO):LocalDataSource{
-        return LocalDataSourceImpl(excerciseDAO)
+    fun provideLocalDataSource(exerciseDAO: ExcerciseDAO):LocalDataSource{
+        return LocalDataSourceImpl(exerciseDAO)
     }
 
     @Provides

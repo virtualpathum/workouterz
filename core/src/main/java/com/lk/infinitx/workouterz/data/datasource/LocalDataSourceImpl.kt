@@ -6,8 +6,8 @@ import com.lk.infinitx.workouterz.data.entity.Excercise
 
 class LocalDataSourceImpl(private val excerciseDAO: ExcerciseDAO): LocalDataSource {
 
-    override suspend fun getAllFromDB(): List<Excercise> {
-            val excerciseList = ArrayList<Excercise>()
+    override fun getAllFromDB(): List<Excercise> {
+            val list = ArrayList<Excercise>()
 
             val jumpingJacks = Excercise(
                 1,
@@ -99,20 +99,20 @@ class LocalDataSourceImpl(private val excerciseDAO: ExcerciseDAO): LocalDataSour
                 false,
                 false
             );
-            excerciseList.add(jumpingJacks)
-            excerciseList.add(plank)
-            excerciseList.add(wallSit)
-            excerciseList.add(pushUp)
-            excerciseList.add(pushUpRotate)
-            excerciseList.add(abdominalCrunch)
-            excerciseList.add(lunge)
-            excerciseList.add(sidePlank)
-            excerciseList.add(tricepDipOnChair)
-            excerciseList.add(stepUpChair)
-            excerciseList.add(squat)
-            excerciseList.add(highKneesRunning)
+            list.add(jumpingJacks)
+            list.add(plank)
+            list.add(wallSit)
+            list.add(pushUp)
+            list.add(pushUpRotate)
+            list.add(abdominalCrunch)
+            list.add(lunge)
+            list.add(sidePlank)
+            list.add(tricepDipOnChair)
+            list.add(stepUpChair)
+            list.add(squat)
+            list.add(highKneesRunning)
 
-            return excerciseList;
+            return list;
 
 
         }

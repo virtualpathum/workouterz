@@ -24,7 +24,7 @@
             android:name="com.lk.infinitx.workouterz.FinishActivity"
             android:exported="false" />
         <activity
-            android:name="com.lk.infinitx.workouterz.ExcerciseActivity"
+            android:name="com.lk.infinitx.workouterz.ExerciseActivity"
             android:exported="false" />
         <activity
             android:name="com.lk.infinitx.workouterz.MainActivity"

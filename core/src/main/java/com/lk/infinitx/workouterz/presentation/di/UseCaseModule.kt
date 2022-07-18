@@ -1,7 +1,7 @@
 package com.lk.infinitx.workouterz.presentation.di
 
 import com.lk.infinitx.workouterz.data.repository.ExcerciseRepository
-import com.lk.infinitx.workouterz.interactor.GetExcerciseUseCase
+import com.lk.infinitx.workouterz.interactor.GetExerciseUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,12 +10,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class InteractorModule {
+class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetUseCase(excerciseRepository: ExcerciseRepository):GetExcerciseUseCase{
-        return GetExcerciseUseCase(excerciseRepository)
+    fun providesUseCase(exerciseRepository: ExcerciseRepository):GetExerciseUseCase{
+        return GetExerciseUseCase(exerciseRepository)
     }
-
 }
