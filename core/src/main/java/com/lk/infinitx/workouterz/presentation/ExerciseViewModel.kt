@@ -10,9 +10,7 @@ class ExerciseViewModel(private val getExerciseUseCase: GetExerciseUseCase
 ):ViewModel() {
 
     fun getExerciseList() = liveData {
-        Log.i("MyTag", "Inside Live Data VM")
         val list = getExerciseUseCase.execute()
-        Log.i("MyTag","list size VM : "+ list.size)
         emit(list)
     }
 

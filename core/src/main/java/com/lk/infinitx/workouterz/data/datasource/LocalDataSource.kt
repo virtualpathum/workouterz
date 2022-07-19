@@ -1,13 +1,18 @@
 package com.lk.infinitx.workouterz.data.datasource
 
-import com.lk.infinitx.workouterz.data.entity.Excercise
+import com.lk.infinitx.workouterz.data.entity.Exercise
+import com.lk.infinitx.workouterz.data.entity.History
 
 interface LocalDataSource {
 
-    fun getAllFromDB(): List<Excercise>
+    fun getAllFromDB(): List<Exercise>
 
-    suspend fun save(excercise: Excercise):Long
+    suspend fun save(exercise: Exercise):Long
 
-    suspend fun saveList(list:List<Excercise>)
+    suspend fun saveList(list:List<Exercise>)
+
+    suspend fun save(history: History):Long
+
+    suspend fun getAllHistoryFromDB(): List<History>
 
 }

@@ -3,8 +3,8 @@ package com.lk.infinitx.workouterz.data.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tbl_excercise")
-data class Excercise(
+@Entity(tableName = "tbl_exercise")
+data class Exercise(
 
     @PrimaryKey(autoGenerate = true)
     private var id:Int,
@@ -55,7 +55,7 @@ data class Excercise(
     }
 
     companion object {
-        val empty = Excercise(
+        val empty = Exercise(
             0, "", 0, false,
             false
         )

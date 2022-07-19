@@ -1,10 +1,10 @@
 package com.lk.infinitx.workouterz.data.datasource
 
-import com.lk.infinitx.workouterz.data.entity.Excercise
+import com.lk.infinitx.workouterz.data.entity.Exercise
 
 interface CacheDataSource {
 
-    fun getFromCache():List<Excercise>
-    fun saveToCache(exercises :List<Excercise>)
+    fun getFromCache():List<Exercise>
+    fun saveToCache(exercises :List<Exercise>)
 
 }

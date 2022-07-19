@@ -1,7 +1,10 @@
 package com.lk.infinitx.workouterz.presentation.di
 
 import com.lk.infinitx.workouterz.interactor.GetExerciseUseCase
+import com.lk.infinitx.workouterz.interactor.GetHistoryUseCase
+import com.lk.infinitx.workouterz.interactor.SaveHistoryUseCase
 import com.lk.infinitx.workouterz.presentation.ExerciseViewModelFactory
+import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +17,14 @@ class FactoryModule {
 
     @Provides
     @Singleton
-    fun providesViewModelFactory(getExerciseUseCase: GetExerciseUseCase):ExerciseViewModelFactory{
+    fun providesVMFExercise(getExerciseUseCase: GetExerciseUseCase):ExerciseViewModelFactory{
         return ExerciseViewModelFactory(getExerciseUseCase)
+    }
+
+    @Provides
+    @Singleton
+    fun providesVMFHistory(getHistoryUseCase: GetHistoryUseCase,
+                           saveHistoryUseCase: SaveHistoryUseCase): HistoryViewModelFactory {
+        return HistoryViewModelFactory(getHistoryUseCase,saveHistoryUseCase)
     }
 }

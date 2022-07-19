@@ -4,32 +4,36 @@ import android.util.Log
 import com.lk.infinitx.workouterz.data.datasource.CacheDataSource
 import com.lk.infinitx.workouterz.data.datasource.LocalDataSource
 import com.lk.infinitx.workouterz.data.datasource.RemoteDataSource
-import com.lk.infinitx.workouterz.data.entity.Excercise
+import com.lk.infinitx.workouterz.data.entity.Exercise
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-class ExcerciseRepositoryImpl @Inject constructor (
+class ExerciseRepositoryImpl @Inject constructor (
 
     private val cacheDataSource: CacheDataSource,
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 
-): ExcerciseRepository {
+): ExerciseRepository {
 
-    override fun getAll(): List<Excercise> {
+    override fun getAll(): List<Exercise> {
         return getFromCache()
     }
 
-    override suspend fun save(excercise: Excercise): Long {
+    override suspend fun save(excercise: Exercise): Long {
         return localDataSource.save(excercise)
     }
 
-    override suspend fun saveALL(list: List<Excercise>){
+    override suspend fun saveALL(list: List<Exercise>){
        localDataSource.saveList(list)
     }
 
-    private fun getFromCache():List<Excercise>{
-        lateinit var list : List<Excercise>
+    override suspend fun update(): List<Exercise> {
+        TODO("Not yet implemented")
+    }
+
+    private fun getFromCache():List<Exercise>{
+        lateinit var list : List<Exercise>
         try {
             list = cacheDataSource.getFromCache()
             Log.i("MyTag","list size cache: "+ list.size)
@@ -45,8 +49,8 @@ class ExcerciseRepositoryImpl @Inject constructor (
         return list
     }
 
-    private fun getFromDB():List<Excercise>{
-        lateinit var list : List<Excercise>
+    private fun getFromDB():List<Exercise>{
+        lateinit var list : List<Exercise>
         try {
             list = localDataSource.getAllFromDB()
             Log.i("MyTag","list size DB: "+ list.size)
@@ -64,7 +68,7 @@ class ExcerciseRepositoryImpl @Inject constructor (
         return list
     }
 
-    private suspend fun getFromAPI():List<Excercise>{
+    private suspend fun getFromAPI():List<Exercise>{
         return remoteDataSource.getAllFromAPI()
     }
 

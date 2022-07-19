@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457960647393:android:f26ed633e85504f2ece5a0",
+        "android_client_info": {
+          "package_name": "com.lk.infinitx.workouterz.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457960647393-ggq3g1i4jnftdgdrgsh8i25u6j6h219t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbWF5i4SYX00QY4xGs-OCfGjcmolluGn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457960647393-ggq3g1i4jnftdgdrgsh8i25u6j6h219t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

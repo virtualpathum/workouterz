@@ -15,13 +15,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lk.infinitx.workouterz.analytics.Analytics
 import com.lk.infinitx.workouterz.analytics.FirebaseAnalytics
-import com.lk.infinitx.workouterz.data.entity.Excercise
+import com.lk.infinitx.workouterz.data.entity.Exercise
+import com.lk.infinitx.workouterz.data.entity.History
 import com.lk.infinitx.workouterz.presentation.ExerciseViewModel
 import com.lk.infinitx.workouterz.presentation.ExerciseViewModelFactory
 import com.lk.infinitx.workouterz.databinding.ActivityExerciseBinding
 import com.lk.infinitx.workouterz.databinding.DialogCustomBackConfirmationBinding
+import com.lk.infinitx.workouterz.presentation.HistoryViewModel
+import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
 import com.lk.infinitx.workouterz.presentation.adapter.ExcerciseStatusAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
@@ -31,9 +37,12 @@ import kotlin.collections.ArrayList
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     @Inject
-    lateinit var vmFactory: ExerciseViewModelFactory
+    lateinit var vmfExercise: ExerciseViewModelFactory
+    @Inject
+    lateinit var vmfHistory: HistoryViewModelFactory
     private lateinit var binding: ActivityExerciseBinding
-    private lateinit var viewModel: ExerciseViewModel
+    private lateinit var vmExercise: ExerciseViewModel
+    private lateinit var vmHistory: HistoryViewModel
 
     private var restTimer:CountDownTimer? = null
     private var restProgress:Int = 0
@@ -68,11 +77,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             customDialogForBackButton()
         }
 
-        viewModel = ViewModelProvider(this,vmFactory)[ExerciseViewModel::class.java]
+        vmExercise = ViewModelProvider(this,vmfExercise)[ExerciseViewModel::class.java]
+        vmHistory = ViewModelProvider(this,vmfHistory)[HistoryViewModel::class.java]
 
        // binding.toolBar?.title = "Just Workout"
 
-        val liveData = viewModel.getExerciseList()
+        val liveData = vmExercise.getExerciseList()
         liveData.observe(this) {
             val list = ArrayList(it)
             list.sortBy { item -> item.getId() }
@@ -108,7 +118,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         customDialog.show()
     }
 
-    private fun setupExerciseStatusRecycler(list:ArrayList<Excercise>){
+    private fun setupExerciseStatusRecycler(list:ArrayList<Exercise>){
         binding.rvExerciseStatus.layoutManager =
             LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
         statusAdapter = ExcerciseStatusAdapter(list)
@@ -120,14 +130,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             val sound = Uri.parse("android.resource://com.lk.infinitx.workouterz/" + R.raw.press_start)
             player = MediaPlayer.create(applicationContext,sound)
             player.isLooping = false
-            player.start()
         }catch (e:Exception){
             e.printStackTrace()
         }
     }
 
-    private fun setupRestView(list:ArrayList<Excercise>){
+    private fun playSound(){
+        player.start()
+    }
 
+    private fun setupRestView(list:ArrayList<Exercise>){
+        playSound()
         binding.flRestView.visibility = View.VISIBLE
         binding.flExerciseView.visibility = View.INVISIBLE
         binding.tvTitle.visibility = View.VISIBLE
@@ -152,7 +165,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setRestProgressBar(list)
     }
 
-    private fun setupExerciseView(list:ArrayList<Excercise>){
+    private fun setupExerciseView(list:ArrayList<Exercise>){
         binding.flRestView.visibility = View.INVISIBLE
         binding.flExerciseView.visibility = View.VISIBLE
         binding.tvTitle.visibility = View.INVISIBLE
@@ -172,7 +185,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setExerciseProgressBar(list)
     }
 
-    private fun setExerciseProgressBar(list:ArrayList<Excercise>){
+    private fun setExerciseProgressBar(list:ArrayList<Exercise>){
 
         binding.progessBarExercise.progress = exerciseProgress
 
@@ -191,8 +204,18 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     list[currentPosition].setIsCompleted(true)
                     statusAdapter!!.notifyDataSetChanged()
                     analytics?.logEvent( list[currentPosition].getName(),"Exercise Screen")
+
+                    vmHistory.saveHistory(History(0,list[currentPosition].getId(), Date())).observe(this@ExerciseActivity,
+                        androidx.lifecycle.Observer {
+                            Log.i("MyTag","Saved ID : ${it}")
+                        })
+
                     setupRestView(list)
                 }else{
+
+                    vmHistory.getHistory().observe(this@ExerciseActivity, androidx.lifecycle.Observer {
+                        Log.i("MyTag","IT Size : ${it.size}")
+                    })
                     finish()
                     val intent = Intent(this@ExerciseActivity,FinishActivity::class.java)
                     startActivity(intent)
@@ -203,7 +226,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     }
 
-    private fun setRestProgressBar(list:ArrayList<Excercise>){
+    private fun setRestProgressBar(list:ArrayList<Exercise>){
 
         binding.progessBarExercise.progress = exerciseProgress
 

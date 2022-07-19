@@ -1,7 +1,8 @@
 package com.lk.infinitx.workouterz.presentation.di
 
 import com.lk.infinitx.workouterz.data.datasource.*
-import com.lk.infinitx.workouterz.data.db.ExcerciseDAO
+import com.lk.infinitx.workouterz.data.db.ExerciseDAO
+import com.lk.infinitx.workouterz.data.db.HistoryDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,8 +21,8 @@ class DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(exerciseDAO: ExcerciseDAO):LocalDataSource{
-        return LocalDataSourceImpl(exerciseDAO)
+    fun provideLocalDataSource(exerciseDAO: ExerciseDAO,historyDAO: HistoryDAO):LocalDataSource{
+        return LocalDataSourceImpl(exerciseDAO,historyDAO)
     }
 
     @Provides

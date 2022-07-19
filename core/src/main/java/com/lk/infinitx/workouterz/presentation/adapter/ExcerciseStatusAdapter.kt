@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.lk.infinitx.workouterz.R
-import com.lk.infinitx.workouterz.data.entity.Excercise
+import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.databinding.ItemExcerciseStatusBinding
 
-class ExcerciseStatusAdapter(val items:ArrayList<Excercise>) : RecyclerView.Adapter<
+class ExcerciseStatusAdapter(val items:ArrayList<Exercise>) : RecyclerView.Adapter<
         ExcerciseStatusAdapter.ViewHolder>() {
 
     class ViewHolder(binding: ItemExcerciseStatusBinding):
@@ -23,7 +23,7 @@ class ExcerciseStatusAdapter(val items:ArrayList<Excercise>) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val model: Excercise = items[position]
+       val model: Exercise = items[position]
         holder.tvItem.text = model.getId().toString()
 
         when{

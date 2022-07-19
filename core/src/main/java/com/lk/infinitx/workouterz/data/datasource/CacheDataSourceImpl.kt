@@ -1,16 +1,16 @@
 package com.lk.infinitx.workouterz.data.datasource
 
-import com.lk.infinitx.workouterz.data.entity.Excercise
+import com.lk.infinitx.workouterz.data.entity.Exercise
 
 class CacheDataSourceImpl:CacheDataSource {
 
-    private var list = ArrayList<Excercise>()
+    private var list = ArrayList<Exercise>()
 
-    override fun getFromCache(): List<Excercise> {
+    override fun getFromCache(): List<Exercise> {
        return list
     }
 
-    override fun saveToCache(excercises: List<Excercise>) {
+    override fun saveToCache(excercises: List<Exercise>) {
         list.clear()
         list.addAll(excercises)
     }

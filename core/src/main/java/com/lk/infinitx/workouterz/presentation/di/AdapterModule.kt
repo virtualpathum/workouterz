@@ -1,6 +1,6 @@
 package com.lk.infinitx.workouterz.presentation.di
 
-import com.lk.infinitx.workouterz.data.entity.Excercise
+import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.presentation.adapter.ExcerciseStatusAdapter
 import dagger.Module
 import dagger.Provides
@@ -14,7 +14,7 @@ class AdapterModule {
 
     @Provides
     @Singleton
-    fun providesAdapter(list:ArrayList<Excercise>):ExcerciseStatusAdapter{
+    fun providesAdapter(list:ArrayList<Exercise>):ExcerciseStatusAdapter{
         return ExcerciseStatusAdapter(list)
     }
 }
