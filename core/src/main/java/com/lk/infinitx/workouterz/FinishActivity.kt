@@ -1,24 +1,32 @@
 package com.lk.infinitx.workouterz
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.ui.Modifier
+import com.example.unitconverterapp.ui.theme.WorkouterZAppTheme
+import com.lk.infinitx.workouterz.compose.FinishScreen
 import com.lk.infinitx.workouterz.databinding.ActivityFinishBinding
+import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class FinishActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class FinishActivity : ComponentActivity() {
     private lateinit var binding: ActivityFinishBinding
+    @Inject
+    lateinit var vmfHistory:HistoryViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        binding = ActivityFinishBinding.inflate(layoutInflater)
+       /* binding = ActivityFinishBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbarFinishActivity)
-
-        if (supportActionBar != null) {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
         binding.toolbarFinishActivity.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -27,6 +35,20 @@ class FinishActivity : AppCompatActivity() {
 
             throw RuntimeException("Test Crash")
            // finish()
+        }*/
+
+        setContent {
+            WorkouterZAppTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    FinishScreen(vmfHistory){
+                        finish()
+                    }
+                }
+            }
         }
     }
 }

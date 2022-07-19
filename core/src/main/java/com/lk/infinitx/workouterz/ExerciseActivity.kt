@@ -205,7 +205,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     statusAdapter!!.notifyDataSetChanged()
                     analytics?.logEvent( list[currentPosition].getName(),"Exercise Screen")
 
-                    vmHistory.saveHistory(History(0,list[currentPosition].getId(), Date())).observe(this@ExerciseActivity,
+                    vmHistory.saveHistory(History(0,list[currentPosition].getName(), Date())).observe(this@ExerciseActivity,
                         androidx.lifecycle.Observer {
                             Log.i("MyTag","Saved ID : ${it}")
                         })

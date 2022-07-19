@@ -11,14 +11,14 @@ import java.util.*
 data class History(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    public val id:Int,
+    val id:Int,
 
-    @ColumnInfo(name = "exercise_id")
-    public var exerciseId: Int,
+    @ColumnInfo(name = "exercise_name")
+    var exerciseName: String,
 
     @ColumnInfo(name = "date")
     @TypeConverters(Converters::class)
-    public var date:Date,
+    var date:Date,
 ) {
 
 }
