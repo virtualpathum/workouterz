@@ -2,9 +2,10 @@ package com.lk.infinitx.workouterz.data.repository
 
 import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.data.entity.History
+import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {
 
-    suspend fun getAll(): List<History>
+    fun getAll(): Flow<List<History>>
     suspend fun save(history: History): Long
 }

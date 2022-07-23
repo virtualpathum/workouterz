@@ -22,7 +22,9 @@ class DatabaseModule {
     @Provides
     fun provideDatabase(@ApplicationContext context: Context):ExerciseDatabase{
         return Room.databaseBuilder(context,ExerciseDatabase::class.java,"workouterz")
-            .addTypeConverter(Converters()).build()
+            .addTypeConverter(Converters())
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Singleton

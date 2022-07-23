@@ -1,4 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">WorkouterZ</string>
     <string name="image">start image</string>
+    <string name="bottom_navigation_profile">Profile</string>
+    <string name="bottom_navigation_home">Home</string>
+    <string name="congratulations">Congratulations! You have completed your workout</string>
+    <string name="exercise_history">Exercise History</string>
+    <string name="clear_all">Clear All</string>
+    <string name="done_all">Done All</string>
+
+
 </resources>

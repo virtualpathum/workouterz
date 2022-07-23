@@ -2,10 +2,11 @@ package com.lk.infinitx.workouterz.data.repository
 
 import com.lk.infinitx.workouterz.data.datasource.LocalDataSource
 import com.lk.infinitx.workouterz.data.entity.History
+import kotlinx.coroutines.flow.Flow
 
 class HistoryRepositoryImpl(private val localDataSource: LocalDataSource) : HistoryRepository {
 
-    override suspend fun getAll(): List<History> {
+    override fun getAll(): Flow<List<History>> {
         return localDataSource.getAllHistoryFromDB()
     }
 

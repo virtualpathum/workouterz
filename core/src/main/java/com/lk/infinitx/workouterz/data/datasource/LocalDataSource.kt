@@ -1,7 +1,9 @@
 package com.lk.infinitx.workouterz.data.datasource
 
+import androidx.compose.runtime.State
 import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.data.entity.History
+import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
 
@@ -13,6 +15,6 @@ interface LocalDataSource {
 
     suspend fun save(history: History):Long
 
-    suspend fun getAllHistoryFromDB(): List<History>
+    fun getAllHistoryFromDB(): Flow<List<History>>
 
 }

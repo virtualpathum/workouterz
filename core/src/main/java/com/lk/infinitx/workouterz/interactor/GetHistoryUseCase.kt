@@ -4,9 +4,10 @@ import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.data.entity.History
 import com.lk.infinitx.workouterz.data.repository.ExerciseRepository
 import com.lk.infinitx.workouterz.data.repository.HistoryRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetHistoryUseCase @Inject constructor(private val historyRepository: HistoryRepository){
-   suspend fun execute(): List<History> = historyRepository.getAll()
+   fun execute(): Flow<List<History>> = historyRepository.getAll()
 
 }

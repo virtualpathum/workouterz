@@ -11,10 +11,17 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.unitconverterapp.ui.theme.WorkouterZAppTheme
 import com.lk.infinitx.workouterz.analytics.Analytics
 import com.lk.infinitx.workouterz.analytics.FirebaseAnalytics
+import com.lk.infinitx.workouterz.compose.FinishScreen
+import com.lk.infinitx.workouterz.compose.WorkouterzBottomNavigation
 import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.data.entity.History
 import com.lk.infinitx.workouterz.presentation.ExerciseViewModel
@@ -205,7 +212,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     statusAdapter!!.notifyDataSetChanged()
                     analytics?.logEvent( list[currentPosition].getName(),"Exercise Screen")
 
-                    vmHistory.saveHistory(History(0,list[currentPosition].getName(), Date())).observe(this@ExerciseActivity,
+                    vmHistory.saveHistory(History(0,list[currentPosition].getName(),list[currentPosition].getImage(), Date())).observe(this@ExerciseActivity,
                         androidx.lifecycle.Observer {
                             Log.i("MyTag","Saved ID : ${it}")
                         })
@@ -213,10 +220,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     setupRestView(list)
                 }else{
 
-                    vmHistory.getHistory().observe(this@ExerciseActivity, androidx.lifecycle.Observer {
+                   /* vmHistory.getHistory().observe(this@ExerciseActivity, androidx.lifecycle.Observer {
                         Log.i("MyTag","IT Size : ${it.size}")
-                    })
+                    })*/
                     finish()
+
                     val intent = Intent(this@ExerciseActivity,FinishActivity::class.java)
                     startActivity(intent)
                 }
@@ -225,6 +233,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }.start()
 
     }
+
 
     private fun setRestProgressBar(list:ArrayList<Exercise>){
 

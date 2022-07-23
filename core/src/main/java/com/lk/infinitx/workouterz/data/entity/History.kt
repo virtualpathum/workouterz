@@ -13,8 +13,11 @@ data class History(
     @ColumnInfo(name = "id")
     val id:Int,
 
-    @ColumnInfo(name = "exercise_name")
-    var exerciseName: String,
+    @ColumnInfo(name = "name")
+    var name: String,
+
+    @ColumnInfo(name = "image")
+    var image:Int,
 
     @ColumnInfo(name = "date")
     @TypeConverters(Converters::class)

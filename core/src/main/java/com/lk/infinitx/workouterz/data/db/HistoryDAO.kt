@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.data.entity.History
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HistoryDAO {
@@ -14,5 +15,5 @@ interface HistoryDAO {
     suspend fun save(history: History):Long
 
     @Query("SELECT * FROM tbl_history")
-    suspend fun getAll():List<History>
+    fun getAll():Flow<List<History>>
 }

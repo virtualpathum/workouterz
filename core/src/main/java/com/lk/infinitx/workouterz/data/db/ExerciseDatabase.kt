@@ -8,7 +8,7 @@ import com.lk.infinitx.workouterz.data.entity.History
 import com.lk.infinitx.workouterz.utils.Converters
 
 
-@Database(entities = [Exercise::class,History::class], version = 1)
+@Database(entities = [Exercise::class,History::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class ExerciseDatabase : RoomDatabase() {
 

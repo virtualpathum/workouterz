@@ -4,11 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.unitconverterapp.ui.theme.WorkouterZAppTheme
 import com.lk.infinitx.workouterz.compose.FinishScreen
+import com.lk.infinitx.workouterz.compose.WorkouterzBottomNavigation
 import com.lk.infinitx.workouterz.databinding.ActivityFinishBinding
 import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,15 +43,22 @@ class FinishActivity : ComponentActivity() {
         }*/
 
         setContent {
-            WorkouterZAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    FinishScreen(vmfHistory){
+            launchFinishScreen()
+        }
+    }
+
+    @Composable
+    fun launchFinishScreen(){
+        WorkouterZAppTheme() {
+            Scaffold(
+                bottomBar = {
+                    WorkouterzBottomNavigation(){
                         finish()
                     }
+                }
+            ) {
+                FinishScreen(vmfHistory,Modifier.padding(10.dp)){
+
                 }
             }
         }

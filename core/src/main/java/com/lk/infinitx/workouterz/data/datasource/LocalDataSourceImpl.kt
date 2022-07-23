@@ -5,6 +5,7 @@ import com.lk.infinitx.workouterz.data.db.ExerciseDAO
 import com.lk.infinitx.workouterz.data.db.HistoryDAO
 import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.data.entity.History
+import kotlinx.coroutines.flow.Flow
 
 class LocalDataSourceImpl(private val exerciseDAO: ExerciseDAO, private val historyDAO: HistoryDAO): LocalDataSource {
 
@@ -131,7 +132,7 @@ class LocalDataSourceImpl(private val exerciseDAO: ExerciseDAO, private val hist
         return historyDAO.save(history)
     }
 
-    override suspend fun getAllHistoryFromDB(): List<History> {
+    override fun getAllHistoryFromDB(): Flow<List<History>> {
         return historyDAO.getAll()
     }
 }
