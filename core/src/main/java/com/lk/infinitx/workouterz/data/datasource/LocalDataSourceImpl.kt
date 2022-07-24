@@ -135,4 +135,12 @@ class LocalDataSourceImpl(private val exerciseDAO: ExerciseDAO, private val hist
     override fun getAllHistoryFromDB(): Flow<List<History>> {
         return historyDAO.getAll()
     }
+
+    override suspend fun deleteAll(){
+        historyDAO.deleteAll()
+    }
+
+    override suspend fun delete(history: History) {
+        historyDAO.delete(history)
+    }
 }

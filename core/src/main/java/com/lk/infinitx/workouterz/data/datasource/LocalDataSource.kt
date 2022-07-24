@@ -17,4 +17,8 @@ interface LocalDataSource {
 
     fun getAllHistoryFromDB(): Flow<List<History>>
 
+    suspend fun deleteAll()
+
+    suspend fun delete(history: History)
+
 }

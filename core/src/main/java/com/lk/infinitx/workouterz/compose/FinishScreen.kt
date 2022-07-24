@@ -36,20 +36,21 @@ import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
 fun FinishScreen(
     vmfHistory : HistoryViewModelFactory,
     modifier: Modifier = Modifier,
-    vmHistory: HistoryViewModel = viewModel(factory = vmfHistory),
-    onClearAllTask : () -> Unit
+    vmHistory: HistoryViewModel = viewModel(factory = vmfHistory)
 ){
     val list =  vmHistory.list.collectAsState(initial = emptyList())
        Column(modifier,
             horizontalAlignment = Alignment.CenterHorizontally) {
-        Spacer(Modifier.height(6.dp))
+       // Spacer(Modifier.height(4.dp))
         MessageSection(R.string.congratulations,modifier){
             DoneElement(modifier)
         }
 
-        HistorySection(list = list, onCloseTask = {}, onClearAllTask = { /*TODO*/ })
+        HistorySection(list = list,
+            onCloseTask = {item -> vmHistory.delete(item)},
+            onClearAllTask = { vmHistory.deleteAll()})
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(4.dp))
     }
 
 }

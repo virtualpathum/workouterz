@@ -9,4 +9,8 @@ import javax.inject.Inject
 class SaveHistoryUseCase @Inject constructor(private val historyRepository: HistoryRepository){
    suspend fun execute(history: History): Long = historyRepository.save(history)
 
+   suspend fun deleteAll() = historyRepository.deleteAll()
+
+   suspend fun delete(history: History) = historyRepository.delete(history = history)
+
 }

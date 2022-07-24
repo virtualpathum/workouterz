@@ -34,7 +34,7 @@ fun HistoryItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.width(192.dp)
+            modifier = Modifier.width(250.dp).heightIn(50.dp)
         ) {
             Image(
                 painter = painterResource(drawable),
@@ -42,11 +42,25 @@ fun HistoryItem(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(56.dp)
             )
-            Text(
-                text = name,
-                style = MaterialTheme.typography.h3,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
+            Column(modifier = Modifier) {
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier.padding(10.dp)
+                )
+                Text(
+                    text = date,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier.padding(10.dp)
+                )
+
+                IconButton(onClick = { onClose() }) {
+                    Icon(Icons.Filled.Close, contentDescription ="close" )
+                }
+            }
+
+
+
         }
     }
 

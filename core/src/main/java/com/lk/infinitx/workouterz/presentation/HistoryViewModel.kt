@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class HistoryViewModel(
 
-    private val getHistoryUseCase: GetHistoryUseCase,
+    getHistoryUseCase: GetHistoryUseCase,
     private val saveHistoryUseCase: SaveHistoryUseCase):ViewModel() {
 
 
@@ -25,10 +25,22 @@ class HistoryViewModel(
 
         }*/
 
-        fun saveHistory(history: History) = liveData<Long> {
+        fun save(history: History) = liveData<Long> {
             viewModelScope.launch(Dispatchers.IO) {
                 val id = saveHistoryUseCase.execute(history)
                 emit(id)
             }
         }
+
+        fun deleteAll() =
+            viewModelScope.launch(Dispatchers.IO) {
+                saveHistoryUseCase.deleteAll()
+            }
+
+
+        fun delete(history: History) =
+            viewModelScope.launch(Dispatchers.IO) {
+                saveHistoryUseCase.delete(history)
+            }
+
 }

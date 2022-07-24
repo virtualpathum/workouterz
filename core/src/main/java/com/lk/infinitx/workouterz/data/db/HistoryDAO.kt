@@ -1,9 +1,6 @@
 package com.lk.infinitx.workouterz.data.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.data.entity.History
 import kotlinx.coroutines.flow.Flow
@@ -16,4 +13,10 @@ interface HistoryDAO {
 
     @Query("SELECT * FROM tbl_history")
     fun getAll():Flow<List<History>>
+
+    @Query("DELETE FROM tbl_history")
+    suspend fun deleteAll()
+
+    @Delete
+    suspend fun delete(history: History)
 }

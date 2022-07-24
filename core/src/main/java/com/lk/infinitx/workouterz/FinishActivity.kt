@@ -57,9 +57,7 @@ class FinishActivity : ComponentActivity() {
                     }
                 }
             ) {
-                FinishScreen(vmfHistory,Modifier.padding(10.dp)){
-
-                }
+                FinishScreen(vmfHistory,Modifier.padding(5.dp))
             }
         }
     }

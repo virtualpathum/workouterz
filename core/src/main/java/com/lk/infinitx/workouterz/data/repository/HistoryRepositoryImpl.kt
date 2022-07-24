@@ -13,4 +13,12 @@ class HistoryRepositoryImpl(private val localDataSource: LocalDataSource) : Hist
     override suspend fun save(history: History): Long {
        return localDataSource.save(history)
     }
+
+    override suspend fun deleteAll(){
+        localDataSource.deleteAll()
+    }
+
+    override suspend fun delete(history: History) {
+        localDataSource.delete(history)
+    }
 }

@@ -8,4 +8,6 @@ interface HistoryRepository {
 
     fun getAll(): Flow<List<History>>
     suspend fun save(history: History): Long
+    suspend fun deleteAll()
+    suspend fun delete(history: History)
 }

@@ -28,46 +28,55 @@ fun MessageSection(
     @StringRes title: Int,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
+    ) {
+    Surface(
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier.fillMaxWidth()
     ){
     Column(
         modifier,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             text = stringResource(R.string.congratulations).uppercase(Locale.getDefault()),
             style = MaterialTheme.typography.h3,
             modifier = Modifier.fillMaxWidth()
                 .paddingFromBaseline(top = 40.dp, bottom = 8.dp),
-            color =MaterialTheme.colors.primary,
+            color = MaterialTheme.colors.primary,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold
-
-
         )
         content()
+    }
     }
 }
 
 @Composable
 fun DoneElement(modifier: Modifier) {
-    Column(
-        modifier = modifier.padding(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    Surface(
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier
+    ) {
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
 
-        ) {
+            ) {
 
-        Image(
-            painter = painterResource(R.drawable.ic_done),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(88.dp)
-                .clip(CircleShape)
-        )
-        Text(
-            text = stringResource(R.string.done_all),
-            style = MaterialTheme.typography.h3,
-            modifier = Modifier.padding(horizontal = 16.dp),
-            color = Color.Black
-        )
+            Image(
+                painter = painterResource(R.drawable.ic_done),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(88.dp)
+                    .clip(CircleShape)
+            )
+            Text(
+                text = stringResource(R.string.done_all),
+                style = MaterialTheme.typography.h3,
+                modifier = Modifier.padding(horizontal = 16.dp),
+                color = Color.Black
+            )
+        }
     }
 }
