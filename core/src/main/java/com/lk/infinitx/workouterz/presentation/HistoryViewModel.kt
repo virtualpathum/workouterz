@@ -6,10 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.lk.infinitx.workouterz.data.entity.History
 import com.lk.infinitx.workouterz.interactor.GetHistoryUseCase
 import com.lk.infinitx.workouterz.interactor.SaveHistoryUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HistoryViewModel(
+@HiltViewModel
+class HistoryViewModel @Inject constructor(
 
     getHistoryUseCase: GetHistoryUseCase,
     private val saveHistoryUseCase: SaveHistoryUseCase):ViewModel() {

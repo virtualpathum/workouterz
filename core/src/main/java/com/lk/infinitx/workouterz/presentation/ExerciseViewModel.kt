@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.lk.infinitx.workouterz.interactor.GetExerciseUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
-class ExerciseViewModel(private val getExerciseUseCase: GetExerciseUseCase
+@HiltViewModel
+class ExerciseViewModel @Inject constructor(private val getExerciseUseCase: GetExerciseUseCase
 ):ViewModel() {
 
     fun getExerciseList() = liveData {

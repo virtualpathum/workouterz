@@ -3,7 +3,6 @@ package com.lk.infinitx.workouterz
 import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,31 +10,20 @@ import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.unitconverterapp.ui.theme.WorkouterZAppTheme
 import com.lk.infinitx.workouterz.analytics.Analytics
 import com.lk.infinitx.workouterz.analytics.FirebaseAnalytics
-import com.lk.infinitx.workouterz.compose.FinishScreen
-import com.lk.infinitx.workouterz.compose.WorkouterzBottomNavigation
 import com.lk.infinitx.workouterz.data.entity.Exercise
 import com.lk.infinitx.workouterz.data.entity.History
 import com.lk.infinitx.workouterz.presentation.ExerciseViewModel
-import com.lk.infinitx.workouterz.presentation.ExerciseViewModelFactory
+//import com.lk.infinitx.workouterz.presentation.ExerciseViewModelFactory
 import com.lk.infinitx.workouterz.databinding.ActivityExerciseBinding
 import com.lk.infinitx.workouterz.databinding.DialogCustomBackConfirmationBinding
 import com.lk.infinitx.workouterz.presentation.HistoryViewModel
-import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
+//import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
 import com.lk.infinitx.workouterz.presentation.adapter.ExcerciseStatusAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -43,13 +31,20 @@ import kotlin.collections.ArrayList
 @AndroidEntryPoint
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
+    //@Inject
+    //lateinit var vmfExercise: ExerciseViewModelFactory
+    //@Inject
+    //lateinit var vmfHistory: HistoryViewModelFactory
+
+    lateinit var statusAdapter: ExcerciseStatusAdapter
     @Inject
-    lateinit var vmfExercise: ExerciseViewModelFactory
-    @Inject
-    lateinit var vmfHistory: HistoryViewModelFactory
+    lateinit var mediaPlayer: MediaPlayer
+
     private lateinit var binding: ActivityExerciseBinding
-    private lateinit var vmExercise: ExerciseViewModel
-    private lateinit var vmHistory: HistoryViewModel
+
+    private val vmExercise: ExerciseViewModel by viewModels()
+
+    private val vmHistory: HistoryViewModel by viewModels()
 
     private var restTimer:CountDownTimer? = null
     private var restProgress:Int = 0
@@ -59,33 +54,30 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var currentPosition = -1
 
-    private var tts:TextToSpeech? = null
+    private lateinit var tts:TextToSpeech
     private lateinit var player:MediaPlayer
 
     private var analytics : Analytics? = null
 
-    private var statusAdapter: ExcerciseStatusAdapter? = null
+
 
     private var restTimerDuration: Long = 1
     private var exerciseTimerDuration: Long = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolBar)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.toolBar.setNavigationOnClickListener{
             customDialogForBackButton()
         }
 
-        vmExercise = ViewModelProvider(this,vmfExercise)[ExerciseViewModel::class.java]
-        vmHistory = ViewModelProvider(this,vmfHistory)[HistoryViewModel::class.java]
+       // vmExercise = ViewModelProvider(this,vmfExercise)[ExerciseViewModel::class.java]
+        //vmHistory = ViewModelProvider(this,vmfHistory)[HistoryViewModel::class.java]
 
        // binding.toolBar?.title = "Just Workout"
 
@@ -96,16 +88,14 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             setupRestView(list)
             setupExerciseStatusRecycler(list)
         }
+
         tts = TextToSpeech(this,this)
         analytics  =  FirebaseAnalytics(application)
 
-        setupMediaSound()
-        //binding.flProgressBar?.visibility = View.GONE
-
+        //setupMediaSound()
     }
 
     override fun onBackPressed() {
-        //super.onBackPressed()
         customDialogForBackButton()
     }
 
@@ -126,24 +116,16 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setupExerciseStatusRecycler(list:ArrayList<Exercise>){
+        statusAdapter = ExcerciseStatusAdapter(list)
         binding.rvExerciseStatus.layoutManager =
             LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        statusAdapter = ExcerciseStatusAdapter(list)
+       // statusAdapter.items.addAll(list)
         binding.rvExerciseStatus.adapter = statusAdapter
     }
 
-    private fun setupMediaSound(){
-        try {
-            val sound = Uri.parse("android.resource://com.lk.infinitx.workouterz/" + R.raw.press_start)
-            player = MediaPlayer.create(applicationContext,sound)
-            player.isLooping = false
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
-    }
 
     private fun playSound(){
-        player.start()
+        mediaPlayer.start()
     }
 
     private fun setupRestView(list:ArrayList<Exercise>){
@@ -219,10 +201,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                     setupRestView(list)
                 }else{
-
-                   /* vmHistory.getHistory().observe(this@ExerciseActivity, androidx.lifecycle.Observer {
-                        Log.i("MyTag","IT Size : ${it.size}")
-                    })*/
+                    setupExerciseStatusRecycler(ArrayList<Exercise>())
                     finish()
 
                     val intent = Intent(this@ExerciseActivity,FinishActivity::class.java)

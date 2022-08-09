@@ -28,15 +28,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unitconverterapp.ui.theme.WorkouterZAppTheme
 import com.lk.infinitx.workouterz.R
 import com.lk.infinitx.workouterz.presentation.HistoryViewModel
-import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
+
 
 
 
 @Composable
 fun FinishScreen(
-    vmfHistory : HistoryViewModelFactory,
     modifier: Modifier = Modifier,
-    vmHistory: HistoryViewModel = viewModel(factory = vmfHistory)
+    vmHistory: HistoryViewModel
 ){
     val list =  vmHistory.list.collectAsState(initial = emptyList())
        Column(modifier,

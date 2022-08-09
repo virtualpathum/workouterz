@@ -1,10 +1,9 @@
+/*
 package com.lk.infinitx.workouterz.presentation.di
 
 import com.lk.infinitx.workouterz.interactor.GetExerciseUseCase
 import com.lk.infinitx.workouterz.interactor.GetHistoryUseCase
 import com.lk.infinitx.workouterz.interactor.SaveHistoryUseCase
-import com.lk.infinitx.workouterz.presentation.ExerciseViewModelFactory
-import com.lk.infinitx.workouterz.presentation.HistoryViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,4 +26,4 @@ class FactoryModule {
                            saveHistoryUseCase: SaveHistoryUseCase): HistoryViewModelFactory {
         return HistoryViewModelFactory(getHistoryUseCase,saveHistoryUseCase)
     }
-}
+}*/
