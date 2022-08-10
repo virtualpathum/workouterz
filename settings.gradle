@@ -16,3 +16,7 @@ rootProject.name = "WorkouterZ"
 include ':core'
 include ':analytics'
 include ':audioplayer'
+
+// Enable Gradle's version catalog support
+// https://docs.gradle.org/current/userguide/platforms.html
+enableFeaturePreview("VERSION_CATALOGS")

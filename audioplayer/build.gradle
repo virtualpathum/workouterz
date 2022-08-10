@@ -31,7 +31,11 @@ android {
 }
 
 dependencies {
-
+    def mediaVersion = "1.0.0-beta02"
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation "androidx.media3:media3-exoplayer:$mediaVersion"
+    implementation "androidx.media3:media3-ui:$mediaVersion"
+    implementation "androidx.media3:media3-exoplayer-dash:$mediaVersion"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
